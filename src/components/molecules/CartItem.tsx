@@ -3,7 +3,6 @@
 import React from 'react';
 import { CartItem as CartItemType } from '@/types';
 import { useCartStore } from '@/stores/useCartStore';
-import { Button } from '@/components/atoms/Button';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 
 interface CartItemProps {

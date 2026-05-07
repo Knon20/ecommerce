@@ -26,6 +26,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     addItem(product);
   };
 
+  if (!mounted) {
+    return (
+      <div className="group relative block overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div className="aspect-square w-full bg-gray-100" />
+        <div className="p-4 space-y-2">
+          <div className="h-4 w-1/4 bg-gray-200 rounded animate-pulse" />
+          <div className="h-6 w-3/4 bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Link href={`/product/${product.id}`} className="group relative block overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
       <div className="aspect-square w-full overflow-hidden bg-gray-100">

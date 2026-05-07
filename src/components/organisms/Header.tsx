@@ -3,7 +3,7 @@
 import React from 'react';
 import { useCartStore } from '@/stores/useCartStore';
 import { SearchBar } from '@/components/molecules/SearchBar';
-import { ShoppingCart, Menu, Store } from 'lucide-react';
+import { ShoppingCart, Store } from 'lucide-react';
 import Link from 'next/link';
 import { CartSlideOver } from './CartSlideOver';
 

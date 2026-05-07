@@ -36,13 +36,13 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                     <Star
                       key={rating}
                       className={`h-5 w-5 flex-shrink-0 ${
-                        product.rating > rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+                        product.rating.rate > rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
                       }`}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
-                <p className="ml-2 text-sm text-gray-500">{product.rating} out of 5 stars</p>
+                <p className="ml-2 text-sm text-gray-500">{product.rating.rate} out of 5 stars</p>
               </div>
             </div>
           </div>
