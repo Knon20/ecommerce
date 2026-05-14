@@ -59,11 +59,18 @@ export default function CartPage() {
               onClick={async () => {
                 try {
                   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-ecommerce-pearl.vercel.app';
-                  const res = await fetch(`${API_URL}/checkout`, {
+                  const res = await fetch(`${API_URL}/orders/checkout`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ items, subtotal })
+                    body: JSON.stringify({ items, subtotal }),
+                    credentials: 'include'
                   });
+
+                  if (res.status === 401) {
+                    alert('Debes iniciar sesión para realizar la compra.');
+                    window.location.href = '/login';
+                    return;
+                  }
                   if (res.ok) {
                     alert('Order placed successfully!');
                     clearCart();
