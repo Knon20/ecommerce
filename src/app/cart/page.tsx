@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useCartStore } from '@/stores/useCartStore';
+import { useAuthStore } from '../../stores/useAuthStore';
 import { CartItem } from '@/components/molecules/CartItem';
 import { Button } from '@/components/atoms/Button';
 import Link from 'next/link';
@@ -59,9 +60,13 @@ export default function CartPage() {
               onClick={async () => {
                 try {
                   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-ecommerce-pearl.vercel.app';
+                  const token = useAuthStore.getState().token;
                   const res = await fetch(`${API_URL}/orders/checkout`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`
+                    },
                     body: JSON.stringify({ items, subtotal }),
                     credentials: 'include'
                   });

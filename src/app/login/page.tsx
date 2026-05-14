@@ -20,16 +20,17 @@ export default function LoginPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-        credentials: 'omit', // En producción Vercel backend puede necesitar include si está en el mismo dominio, o para CORS.
-        // Wait, the cookies won't work cross-domain if they aren't on the same site. But the backend sets httpOnly cookie.
+        credentials: 'include',
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const data = await res.json();
         throw new Error(data.error || 'Error al iniciar sesión');
       }
 
-      setAuthenticated(true);
+      useAuthStore.getState().setAuthenticated(true);
+      useAuthStore.getState().setToken(data.data.token);
       router.push('/cart');
     } catch (err: any) {
       setError(err.message);
