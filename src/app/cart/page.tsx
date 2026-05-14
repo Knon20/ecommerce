@@ -53,7 +53,29 @@ export default function CartPage() {
               <p className="font-semibold">${subtotal.toFixed(2)}</p>
             </div>
             <p className="text-sm text-gray-500 mb-6">Shipping and taxes calculated at checkout.</p>
-            <Button className="w-full" size="lg">
+            <Button 
+              className="w-full" 
+              size="lg"
+              onClick={async () => {
+                try {
+                  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-ecommerce-pearl.vercel.app';
+                  const res = await fetch(`${API_URL}/checkout`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items, subtotal })
+                  });
+                  if (res.ok) {
+                    alert('Order placed successfully!');
+                    clearCart();
+                  } else {
+                    alert('Failed to place order: ' + res.statusText);
+                  }
+                } catch (error) {
+                  console.error('Checkout error:', error);
+                  alert('Error processing checkout. Is the backend running?');
+                }
+              }}
+            >
               Checkout
             </Button>
             <div className="mt-4 text-center">
